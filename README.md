@@ -6,17 +6,35 @@
 | Command | Description |
 |---------|-------------|
 |"__name__"| Name of the module; "__main__" if running script directly |
-|"__file__"| Path of the current file |
+|"__file__"| Full path of the current file |
+
+### Example
+```python
+
+print("Module name:", __name__)
+print("Current file path:", __file__)
+file_path = os.path.join(os.path.dirname(__file__), "example.txt")# Δημιουργία αρχείου στον ίδιο φάκελο με το script
+
+```
 
 ### Python Built-in Commands
 | Command | Description |
 |---------|-------------|
 | open(path, mode) | Open file (mode='w' for writing, 'r' for reading, etc.) |
 | with ... as ... | Context manager: auto-closes file at block end |
-| "file".write() | Write string to file |
-| "file".read() | Read data from file |
-| "file".close() | Close file (usually handled automatically with 'with') |
+| file.write(data) | Write string to file |
+| file.read() | Read data from file |
+| file.close() | Close file (usually handled automatically with 'with') |
 
+### Example
+```python
+
+with open(file_path, "w") as f:
+    f.write(f"Hello from {__name__}!\n") 
+    content = f.read()                  
+    print("File content:\n", content)
+
+```
 </details>
 
 <details>
@@ -25,59 +43,57 @@
 ### Path Operations
 | Command | Description |
 |---------|-------------|
-| os.getcwd() | Get current working directory |
-| os.path.abspath(path) | Absolute path ενός αρχείου/φακέλου |
-| os.path.join(path1, path2, ...) | Συνδέει φακέλους/αρχεία σε ένα πλήρες path |
-| os.path.dirname(path) | Επιστρέφει τον φάκελο ενός path |
-| os.path.basename(path) | Επιστρέφει το όνομα αρχείου/φακέλου από ένα path |
-
-### File & Directory Operations
-| Command | Description |
-|---------|-------------|
-| os.listdir(path='.') | Λίστα αρχείων/φακέλων στο path |
-| os.mkdir(path) | Δημιουργία νέου φακέλου |
-| os.makedirs(path) | Δημιουργία nested φακέλων |
-| os.remove(path) | Διαγραφή αρχείου |
-| os.rmdir(path) | Διαγραφή κενό φακέλου |
+| os.getcwd() | Get the current working directory |
+| os.path.abspath(path) | Get the absolute path of a file or folder |
+| os.path.join(path1, path2, ...) | Join folders/files into a complete path |
+| os.path.dirname(path) | Get the folder part of a path |
+| os.path.basename(path) | Get the file or folder name from a path |
+| os.listdir(path='.') | List files and folders in the given path |
+| os.path.exists(path) | Check if a path exists |
+| os.path.isfile(path) | Check if the path is a file |
+| os.path.isdir(path) | Check if the path is a folder |
+| os.mkdir(path) | Create a new folder |
+| os.makedirs(path) | Create nested folders |
+| os.remove(path) | Delete a file |
+| os.rmdir(path) | Delete an empty folder |
 
 ### Example
 ```python
 import os
 
 cwd = os.getcwd()
-folder_name = "test_dir"
-folder_path = os.path.join(cwd, folder_name)
-if not os.path.exists(folder_path):
-    os.mkdir(folder_path)
 print("Contents:", os.listdir(cwd))#Λίστα περιεχομένων τρέχοντος φακέλου
-file_name = "example.txt"
-file_path = os.path.join(folder_path, file_name)#Δημιουργία πλήρους path για νέο αρχείο
+folder_name = "test_dir"
+folder_path = os.path.join(cwd, folder_name) #Δημιουργία πλήρους path για φάκελο
 
+file_name = "example.txt"
+file_path = os.path.join(cwd, "subfolder name" ,file_name)#Δημιουργία πλήρους path για νέο αρχείο
 ```
 </details> 
 
 <details>
 <summary>Pathlib Cheatsheet</summary>
 
+
 ### Path / File Operations
 | Command | Description |
 |---------|-------------|
-| Path.cwd() | Επιστρέφει το τρέχον working directory ως Path |
-| Path.home() | Επιστρέφει τον φάκελο home του χρήστη |
-| path.exists() | Ελέγχει αν υπάρχει το path (αρχείο ή φάκελος) |
-| path.is_file() | Ελέγχει αν είναι αρχείο |
-| path.is_dir() | Ελέγχει αν είναι φάκελος |
-| path.name | Επιστρέφει το όνομα αρχείου/φακέλου |
-| path.stem | Επιστρέφει το όνομα αρχείου χωρίς extension |
-| path.suffix | Επιστρέφει το extension (π.χ. ".xlsx") |
-| path.parent | Επιστρέφει τον γονικό φάκελο |
-| path.mkdir(exist_ok=True) | Δημιουργεί φάκελο (ελέγχει αν υπάρχει ήδη) |
-| path.touch() | Δημιουργεί άδειο αρχείο ή ενημερώνει timestamp |
-| path.unlink() | Διαγράφει το αρχείο |
-| path.rmdir() | Διαγράφει κενό φάκελο |
-| path.iterdir() | Επιστρέφει generator με τα αρχεία/φακέλους του φακέλου |
-| path.glob(pattern) | Ψάχνει αρχεία/φακέλους που ταιριάζουν με pattern στο folder |
-| path.rglob(pattern) | Αναδρομική αναζήτηση σε όλους τους υποφακέλους με pattern |
+| Path.cwd() | Return the current working directory as a Path object |
+| Path.home() | Return the user’s home directory |
+| path.exists() | Check if the path exists (file or folder) |
+| path.is_file() | Check if the path is a file |
+| path.is_dir() | Check if the path is a folder |
+| path.name | Return the name of the file/folder |
+| path.stem | Return the file name without extension |
+| path.suffix | Return the file extension |
+| path.parent | Return the parent directory |
+| path.mkdir(exist_ok=True) | Create a folder (ignore if it already exists) |
+| path.touch() | Create an empty file or update its timestamp |
+| path.unlink() | Delete the file |
+| path.rmdir() | Delete an empty folder |
+| path.iterdir() | Return a generator of files/folders in the directory |
+| path.glob(pattern) | Search for files/folders matching a pattern in the folder |
+| path.rglob(pattern) | Recursively search all subfolders for matching pattern |
 
 ### Combining Paths
 | Command | Description |
@@ -86,13 +102,21 @@ file_path = os.path.join(folder_path, file_name)#Δημιουργία πλήρο
 
 ### Example
 ```python
+
 from pathlib import Path
 
-BASE_DIR = Path.cwd()            # τρέχων φάκελος
+BASE_DIR = Path.cwd()           
 file_path = BASE_DIR / "data.xlsx"
-if not file_path.exists():
-    file_path.touch()            # δημιουργεί κενό αρχείο
 
+if not file_path.exists():
+    #file_path.touch()            # create empty file
+    found_xlsx_files=list(BASE_DIR.glob("*/*.xlsx*")) #if searching for xlsx files in subfolders
+    print("found xlsx files:", found_xlsx_files) 
+    file_path=found_xlsx_files[0] # take the first found file
+```
+### Example
+```python
+#Inspect file properties
 print(file_path.stem)            # όνομα χωρίς extension
 print(file_path.suffix)          # extension
 print(file_path.parent)          # φάκελος που ανήκει
@@ -105,20 +129,65 @@ print(list(BASE_DIR.glob("*.xlsx"))) # μόνο αρχεία .xlsx
 <details>
 <summary>Pandas Cheatsheet</summary>
 
-### Excel Handling
+### Excel / CSV Handling
 | Command | Description |
 |---------|-------------|
-| pd.read_excel(path, sheet_name=None) | Read Excel file into a DataFrame |
-| df.to_excel(path, sheet_name='Sheet1', index=False) | Write DataFrame to Excel file |
 | pd.ExcelFile(path) | Load Excel file to inspect sheet names |
+| pd.read_excel(path) | Read Excel file into a DataFrame |
+| df.to_excel(path, sheet_name='Sheet1', index=False) | Write DataFrame to Excel file |
 | pd.read_excel(path, sheet_name='Sheet1', usecols='A:C') | Read specific columns from Excel |
 | pd.read_excel(path, sheet_name='Sheet1', skiprows=1) | Skip rows when reading Excel |
+| pd.read_csv(path) | Read CSV file into a DataFrame (default separator is ',') |
+| pd.read_csv(path, sep=';') | Read CSV file using `;` as separator |
+
+### Quick Inspecting of DataFrame (useful after reading input)
+### What is a DataFrame?
+A DataFrame is a 2D table-like data structure in pandas with rows and columns, similar to an Excel sheet or SQL table.
+
+| Command | Description |
+|---------|-------------|
+| df.head(n) | Display first n rows of DataFrame |
+| df.tail(n) | Display last n rows of DataFrame |
+| df.shape | Get number of rows and columns |
+| df.columns | List column names |
+| df.dtypes | Show data types of each column |
+| df.info() | Summary of DataFrame (columns, dtypes, non-null counts) |
+
+### Example
+```python
+import pandas as pd
+
+# Read data (CSV or Excel)
+df_csv = pd.read_csv("data.csv", sep=';')        # for CSV
+df_excel = pd.read_excel("data.xlsx")            # for Excel
+
+# Quick inspection
+print(df_csv.head())     # First rows
+print(df_csv.shape)      # (rows, columns)
+print(df_csv.columns)    # Column names
+print(df_csv.dtypes)     # Data types
+print(df_csv.info())     # Summary info
+```
 
 ### Date / Time
 | Command | Description |
 |---------|-------------|
 | pd.date_range(start, end) | Generate a sequence of dates between start and end |
-| Timestamp.date() | Get date part (datetime.date) from a pandas Timestamp |
+| pd.to_datetime(col) | Convert a column (or value) to pandas datetime |
+| df['col'].dt.date | Extract only the date part from a pandas Timestamp |
+| df['col'].dt.time | Extract only the time part from a pandas Timestamp |
+| df['col'].dt.year / .month / .day | Extract year, month, or day |
+| df['col'].dt.strftime('%Y-%m-%d') | Format datetime as string |
+
+### Example
+```python
+import pandas as pd
+df = pd.read_csv(csv_path) #Read CSV into a DataFrame
+print("Columns in CSV:", df.columns)
+time_data = pd.to_datetime(df['timestamp']).dt.time #Convert timestamp to datetime
+print("Type of 'time_data':", type(time_data))          
+print("Type of individual element:", type(time_data.iloc[0]))  
+```
 
 ### Options / Settings
 | Command | Description |
