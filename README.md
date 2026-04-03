@@ -1,8 +1,134 @@
 # Python Cheatsheet
 <details>
-<summary>Python Built-in / Special Commands</summary>
+<summary>Python Basic Variable Types </summary>
 
-### Special Variables
+## Lists, []
+**Type:** Ordered, mutable collection of elements  
+
+| Command | Description |
+|---------|-------------|
+| `my_list = [1,2,3]` | Create a list |
+| `my_list.append(4)` | Add an element at the end |
+| `my_list.insert(0,0)` | Insert at a specific index |
+| `my_list.remove(2)` | Remove first occurrence of a value |
+| `len(my_list)` | Get number of elements |
+| `my_list.sort()` | Sort the list |
+| `my_list.reverse()` | Reverse the list |
+
+### Example
+```python
+numbers = [10, 5, 8]
+numbers.append(3)
+numbers.sort()
+print(numbers)  # Output: [3, 5, 8, 10]
+```
+## Advanced Alternatives:
+numpy.array([]) → numerical arrays with vectorized operations
+pandas.Series([]) → labeled 1D array with analysis methods
+
+## Dictionaries, {}
+
+**Type:** Key-value mapping (unordered, mutable)  
+
+| Command | Description |
+|---------|-------------|
+| `my_dict = {'a':1,'b':2}` | Create a dictionary |
+| `my_dict['c'] = 3` | Add or update key-value pair |
+| `my_dict.get('a')` | Get value safely (returns None if key missing) |
+| `del my_dict['b']` | Remove key-value pair |
+| `my_dict.keys()` | List all keys |
+| `my_dict.values()` | List all values |
+| `my_dict.items()` | List of (key, value) tuples |
+
+### Example
+```python
+person = {'name':'Alice', 'age':30}
+person['city'] = 'Athens'
+print(person.keys())  # Output: dict_keys(['name','age','city'])
+```
+Advanced Alternatives:
+pandas.DataFrame({'name':['Alice'],'age':[30]}) → tabular key-value-like structure
+collections.defaultdict(int) → dictionary with default values for missing keys
+
+## Sets, set()
+
+**Type:** Unordered collection of unique elements  
+
+| Command | Description |
+|---------|-------------|
+| `my_set = {1,2,3}` | Create a set |
+| `my_set.add(4)` | Add element |
+| `my_set.remove(2)` | Remove element |
+| `my_set.union({5,6})` | Combine sets |
+| `my_set.intersection({3,4,5})` | Elements present in both sets |
+
+### Example
+```python
+numbers = {1,2,3}
+numbers.add(2)  # duplicates ignored
+print(numbers)  # Output: {1,2,3}
+```
+Advanced Alternatives:
+numpy.unique(array) → unique elements from an array
+
+## Tuples ,()
+
+**Type:** Ordered, immutable collection  
+
+| Command | Description |
+|---------|-------------|
+| `my_tuple = (1,2,3)` | Create a tuple |
+| `my_tuple[0]` | Access element |
+| `len(my_tuple)` | Length |
+| `my_tuple.count(2)` | Count occurrences |
+| `my_tuple.index(3)` | Index of value |
+
+### Example
+```python
+point = (10, 20)
+x, y = point  # unpack tuple
+print(x, y)   # Output: 10 20
+```
+
+## Classes / Object-Oriented Programming
+
+**Type:** User-defined objects with attributes and methods  
+
+| Command | Description |
+|---------|-------------|
+| `class ClassName:` | Define a class |
+| `def __init__(self, ...)` | Constructor; initializes object attributes |
+| `self.attribute = value` | Assign an attribute to the object |
+| `def method(self, ...)` | Define a method for the class |
+| `obj = ClassName(args)` | Create an instance of the class |
+| `obj.method()` | Call a method on the instance |
+| `obj.attribute` | Access an attribute |
+
+### Example
+```python
+class Order:
+    def __init__(self, order_id, amount):
+        self.order_id = order_id
+        self.amount = amount
+    
+    def summary(self):
+        return f"Order {self.order_id}: ${self.amount}"
+
+# Create an instance
+my_order = Order(order_id=101, amount=250)
+print(my_order.summary())  # Output: Order 101: $250
+
+# Access attributes
+print(my_order.order_id)   # Output: 101
+print(my_order.amount)     # Output: 250
+```
+</details>
+
+
+<details>
+<summary> Python Built-in / Special Commands</summary>
+
+## Special Variables
 | Command | Description |
 |---------|-------------|
 |"__name__"| Name of the module; "__main__" if running script directly |
@@ -13,11 +139,9 @@
 
 print("Module name:", __name__)
 print("Current file path:", __file__)
-file_path = os.path.join(os.path.dirname(__file__), "example.txt")# Δημιουργία αρχείου στον ίδιο φάκελο με το script
-
 ```
 
-### Python Built-in Commands
+## Python Built-in Commands
 | Command | Description |
 |---------|-------------|
 | open(path, mode) | Open file (mode='w' for writing, 'r' for reading, etc.) |
@@ -35,12 +159,14 @@ with open(file_path, "w") as f:
     print("File content:\n", content)
 
 ```
+
+
 </details>
 
 <details>
 <summary>OS Module Cheatsheet</summary>
 
-### Path Operations
+## OS Operations
 | Command | Description |
 |---------|-------------|
 | os.getcwd() | Get the current working directory |
@@ -75,7 +201,7 @@ file_path = os.path.join(cwd, "subfolder name" ,file_name)#Δημιουργία 
 <summary>Pathlib Cheatsheet</summary>
 
 
-### Path / File Operations
+## Path / File Operations
 | Command | Description |
 |---------|-------------|
 | Path.cwd() | Return the current working directory as a Path object |
@@ -95,7 +221,7 @@ file_path = os.path.join(cwd, "subfolder name" ,file_name)#Δημιουργία 
 | path.glob(pattern) | Search for files/folders matching a pattern in the folder |
 | path.rglob(pattern) | Recursively search all subfolders for matching pattern |
 
-### Combining Paths
+## Combining Paths
 | Command | Description |
 |---------|-------------|
 | parent / "child_folder" | Συνδυάζει φακέλους/αρχεία με `/` operator, π.χ. `path / "file.txt"` |
@@ -129,7 +255,7 @@ print(list(BASE_DIR.glob("*.xlsx"))) # μόνο αρχεία .xlsx
 <details>
 <summary>Pandas Cheatsheet</summary>
 
-### Excel / CSV Handling
+## Excel / CSV Handling
 | Command | Description |
 |---------|-------------|
 | pd.ExcelFile(path) | Load Excel file to inspect sheet names |
@@ -140,7 +266,7 @@ print(list(BASE_DIR.glob("*.xlsx"))) # μόνο αρχεία .xlsx
 | pd.read_csv(path) | Read CSV file into a DataFrame (default separator is ',') |
 | pd.read_csv(path, sep=';') | Read CSV file using `;` as separator |
 
-### Quick Inspecting of DataFrame (useful after reading input)
+## Quick Inspecting of DataFrame (useful after reading input)
 ### What is a DataFrame?
 A DataFrame is a 2D table-like data structure in pandas with rows and columns, similar to an Excel sheet or SQL table.
 
@@ -169,7 +295,7 @@ print(df_csv.dtypes)     # Data types
 print(df_csv.info())     # Summary info
 ```
 
-### Date / Time
+## Date / Time
 | Command | Description |
 |---------|-------------|
 | pd.date_range(start, end) | Generate a sequence of dates between start and end |
@@ -199,7 +325,7 @@ print("Type of individual element:", type(time_data.iloc[0]))
 <details>
 <summary>Numpy Cheatsheet</summary>
 
-### Basic Operations
+## Basic Operations
 | Command | Description |
 |---------|-------------|
 | np.array() | Create a NumPy array |
